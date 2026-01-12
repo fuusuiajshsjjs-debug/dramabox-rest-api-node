@@ -9,7 +9,7 @@
 [![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)](LICENSE)
 [![Version](https://img.shields.io/badge/Version-1.2.0-green?style=for-the-badge)]()
 
-[🚀 Demo](https://dramabox-api-rho.vercel.app/) • [📖 Dokumentasi](#-endpoints) • [🐛 Report Bug](https://github.com/yourusername/dramabox-api/issues)
+[🚀 Demo](https://dramabox-rest-api-node-rho.vercel.app/) • [📖 Dokumentasi](#-endpoints) • [🐛 Report Bug](https://github.com/hndko/dramabox-rest-api-node/issues)
 
 </div>
 
@@ -52,8 +52,8 @@
 
 ```bash
 # Clone repository
-git clone https://github.com/yourusername/dramabox-api.git
-cd dramabox-api
+git clone https://github.com/hndko/dramabox-rest-api-node.git
+cd dramabox-rest-api-node
 
 # Install dependencies
 npm install
@@ -70,6 +70,7 @@ npm run dev
 ```env
 PORT=3000
 NODE_ENV=development
+DEFAULT_LANG=in
 ```
 
 ---
@@ -80,7 +81,7 @@ NODE_ENV=development
 
 ```
 Local: http://localhost:3000
-Production: https://dramabox-api-rho.vercel.app
+Production: https://dramabox-rest-api-node-eta.vercel.app
 ```
 
 ### 🔍 Search Drama
@@ -209,24 +210,27 @@ GET /health
 ## 🗂️ Project Structure
 
 ```
-dramabox-api/
+dramabox-rest-api-node/
+├── 📁 docs/
+│   ├── 📁 api/             # API Documentation & Postman
+│   ├── 📁 deployment/      # Deployment Guides
+│   └── 📁 general/         # General Info
 ├── 📁 src/
-│   ├── 📁 services/
-│   │   └── 📄 Dramabox.js      # Core API service
-│   ├── 📁 utils/
-│   │   ├── 📄 DramaboxUtil.js  # Utility functions
-│   │   └── 📄 proxyManager.js  # Proxy management
-│   └── 📁 styles/
-│       └── 📄 input.css        # Tailwind source
+│   ├── 📁 config/          # App Configuration
+│   ├── 📁 controllers/     # Business Logic
+│   ├── 📁 middlewares/     # Express Middlewares
+│   ├── 📁 routes/          # API Routes
+│   ├── 📁 services/        # Third-party Services
+│   ├── 📁 utils/           # Utility Functions
+│   ├── 📁 styles/          # Tailwind Source
+│   └── 📄 app.js           # App Assembly
 ├── 📁 public/
-│   └── 📁 css/
-│       └── 📄 styles.css       # Compiled CSS
+│   └── 📁 css/             # Compiled CSS
 ├── 📁 views/
-│   └── 📄 docs.ejs             # Documentation page
-├── 📄 server.js                # Main server
+│   └── 📄 docs.ejs         # Documentation Page
+├── 📄 server.js            # Entry Point
 ├── 📄 tailwind.config.js
-├── 📄 package.json
-└── 📄 vercel.json              # Vercel config
+└── 📄 package.json
 ```
 
 ---
@@ -242,30 +246,29 @@ npm run watch:css   # Watch Tailwind changes
 
 ---
 
-## 🚀 Deploy
+## 🚀 Deployment
 
-### Vercel (Recommended)
+We have prepared detailed guides for various platforms:
 
-```bash
-npm i -g vercel
-vercel
-```
+- [**Vercel**](docs/deployment/VERCEL.md) (Recommended for Hobby)
+- [**Shared Hosting (cPanel)**](docs/deployment/SHARED_HOSTING.md)
+- [**VPS (Ubuntu/Debian)**](docs/deployment/VPS.md)
+- [**aaPanel**](docs/deployment/AAPANEL.md)
 
-### Docker
+### Helper
 
-```dockerfile
-FROM node:18-alpine
-WORKDIR /app
-COPY package*.json ./
-RUN npm ci --only=production
-COPY . .
-EXPOSE 3000
-CMD ["npm", "start"]
-```
+- [**Docker Guide**](docs/deployment/DOCKER.md) (Coming Soon)
 
 ---
 
 ## 📝 Changelog
+
+### v1.3.0 (2024-01-12)
+
+- ♻️ **Refactor**: Modular MVC Architecture
+- 🌐 **Feat**: Full Multi-Language Support (`lang=in/en`)
+- 🎨 **UI**: New polished language selector in docs
+- 📚 **Docs**: Restructured documentation & added deployment guides
 
 ### v1.2.0 (2024-12-30)
 
