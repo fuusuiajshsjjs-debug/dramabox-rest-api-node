@@ -1,13 +1,14 @@
 import Dramabox from "../services/Dramabox.js";
 import { apiResponse } from "../utils/response.js";
 import { validateRequired, sanitizeInput } from "../utils/validation.js";
+import { config } from "../config/config.js";
 
 // ============================================
 // DRAMABOX INSTANCE POOL (Singleton per Language)
 // ============================================
 const dramaboxInstances = new Map();
 
-function getDramaboxInstance(lang = "in") {
+function getDramaboxInstance(lang = config.defaultLang) {
   if (!dramaboxInstances.has(lang)) {
     dramaboxInstances.set(lang, new Dramabox(lang));
   }
@@ -20,7 +21,7 @@ export const clearInstances = () => {
 
 export const dramaboxController = {
   search: async (req, res) => {
-    const { keyword, page = 1, size = 20, lang = "in" } = req.query;
+    const { keyword, page = 1, size = 20, lang = config.defaultLang } = req.query;
 
     const validationError = validateRequired({ keyword }, ["keyword"]);
     if (validationError) {
@@ -40,7 +41,7 @@ export const dramaboxController = {
   },
 
   getHome: async (req, res) => {
-    const { page = 1, size = 10, lang = "in" } = req.query;
+    const { page = 1, size = 10, lang = config.defaultLang } = req.query;
 
     const dramabox = getDramaboxInstance(lang);
     const result = await dramabox.getDramaList(parseInt(page), parseInt(size));
@@ -49,7 +50,7 @@ export const dramaboxController = {
   },
 
   getVip: async (req, res) => {
-    const { lang = "in" } = req.query;
+    const { lang = config.defaultLang } = req.query;
 
     const dramabox = getDramaboxInstance(lang);
     const result = await dramabox.getVip();
@@ -59,7 +60,7 @@ export const dramaboxController = {
 
   getDetailV2: async (req, res) => {
     const { bookId } = req.params;
-    const { lang = "in" } = req.query;
+    const { lang = config.defaultLang } = req.query;
 
     if (!bookId || isNaN(bookId)) {
       return res
@@ -77,7 +78,7 @@ export const dramaboxController = {
 
   getChapters: async (req, res) => {
     const { bookId } = req.params;
-    const { lang = "in" } = req.query;
+    const { lang = config.defaultLang } = req.query;
 
     if (!bookId || isNaN(bookId)) {
       return res
@@ -98,7 +99,7 @@ export const dramaboxController = {
   },
 
   getStreamUrl: async (req, res) => {
-    const { bookId, episode, lang = "in" } = req.query;
+    const { bookId, episode, lang = config.defaultLang } = req.query;
 
     const validationError = validateRequired({ bookId, episode }, [
       "bookId",
@@ -129,7 +130,7 @@ export const dramaboxController = {
 
   batchDownload: async (req, res) => {
     const { bookId } = req.params;
-    const { lang = "in" } = req.query;
+    const { lang = config.defaultLang } = req.query;
 
     if (!bookId || isNaN(bookId)) {
       return res
@@ -162,7 +163,7 @@ export const dramaboxController = {
   },
 
   getCategories: async (req, res) => {
-    const { lang = "in" } = req.query;
+    const { lang = config.defaultLang } = req.query;
 
     const dramabox = getDramaboxInstance(lang);
     const result = await dramabox.getCategories();
@@ -176,7 +177,7 @@ export const dramaboxController = {
 
   getBookByCategory: async (req, res) => {
     const { id } = req.params;
-    const { page = 1, size = 10, lang = "in" } = req.query;
+    const { page = 1, size = 10, lang = config.defaultLang } = req.query;
 
     if (!id || isNaN(id)) {
       return res
@@ -200,7 +201,7 @@ export const dramaboxController = {
   },
 
   getRecommendations: async (req, res) => {
-    const { lang = "in" } = req.query;
+    const { lang = config.defaultLang } = req.query;
 
     const dramabox = getDramaboxInstance(lang);
     const result = await dramabox.getRecommendedBooks();
@@ -213,7 +214,7 @@ export const dramaboxController = {
   },
 
   generateHeader: async (req, res) => {
-    const { lang = "in" } = req.query;
+    const { lang = config.defaultLang } = req.query;
 
     const dramabox = getDramaboxInstance(lang);
     const tokenData = await dramabox.getToken();

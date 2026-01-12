@@ -14,7 +14,11 @@ export const defaultLimiter = rateLimit({
   },
   standardHeaders: true,
   legacyHeaders: false,
-  keyGenerator: (req) => req.ip || req.headers["x-forwarded-for"] || "unknown",
+  // Removed custom keyGenerator causing IPv6 issues.
+  // Express-rate-limit handles IP extraction automatically based on 'trust proxy' setting in app.js
+  validate: {
+    xForwardedForHeader: false,
+  }
 });
 
 // Batch Download (Heavy operation - stricter rate limit)
@@ -25,4 +29,7 @@ export const downloadLimiter = rateLimit({
     "RATE_LIMIT_EXCEEDED",
     "Download dibatasi 5 request per menit"
   ),
+  validate: {
+    xForwardedForHeader: false,
+  }
 });

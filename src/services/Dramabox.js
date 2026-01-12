@@ -1,6 +1,7 @@
 import axios from "axios";
 import NodeCache from "node-cache";
 import DramaboxUtil from "../utils/DramaboxUtil.js";
+import { config } from "../config/config.js";
 
 // ============================================
 // CONFIGURATION
@@ -117,7 +118,7 @@ export default class Dramabox {
   lang;
   instanceId;
 
-  constructor(lang = "in") {
+  constructor(lang = config.defaultLang) {
     this.util = new DramaboxUtil();
     this.lang = lang;
     this.instanceId = Math.random().toString(36).substring(7);

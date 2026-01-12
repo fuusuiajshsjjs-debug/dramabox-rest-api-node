@@ -78,7 +78,7 @@ app.get("/health", (req, res) => {
 
 // Documentation
 app.get("/", (req, res) => {
-  res.render("docs", { PORT: config.port });
+  res.render("docs", { PORT: config.port, defaultLang: config.defaultLang });
 });
 
 // API Routes
