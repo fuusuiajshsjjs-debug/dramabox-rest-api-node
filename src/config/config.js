@@ -10,5 +10,5 @@ export const config = {
   rootPath: path.resolve(__dirname, "../../"),
   publicPath: path.join(path.resolve(__dirname, "../../"), "public"),
   viewsPath: path.join(path.resolve(__dirname, "../../"), "views"),
-  defaultLang: process.env.DEFAULT_LANG || "in",
+  defaultLang: process.env.DEFAULT_LANG || "th",
 };
